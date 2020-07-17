@@ -1,7 +1,10 @@
 import * as cdk from "@aws-cdk/core";
 import * as elasticBeanstalk from "@aws-cdk/aws-elasticbeanstalk";
+import { CfnOutput } from "@aws-cdk/core";
 
 export class CreatingAnEnvironmentStack extends cdk.Stack {
+  public readonly environmentUrl: CfnOutput;
+
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -25,5 +28,9 @@ export class CreatingAnEnvironmentStack extends cdk.Stack {
       }
     );
     environment.addDependsOn(application);
+
+    this.environmentUrl = new CfnOutput(this, "EnvironmentUrl", {
+      value: `http://${environment.attrEndpointUrl}`,
+    });
   }
 }
