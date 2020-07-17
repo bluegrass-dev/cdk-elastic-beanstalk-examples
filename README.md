@@ -2,11 +2,11 @@
 
 ## Overview
 
-AWS CDK enables you to codify infrastructure within your a variety of programming languages to build resuable constructs that generate large amounts of AWS CloudFormation. The ratio of effort input vs value output is astounding.
+[`AWS CDK`](https://aws.amazon.com/cdk/) enables you to codify infrastructure within a [`variety of programming languages`](https://docs.aws.amazon.com/cdk/latest/guide/work-with.html) to build resuable constructs that generate large amounts of AWS CloudFormation. The ratio of effort input vs value output is astounding.
 
 In this repository is a public learning effort gradually ramping up toward full SDLC of an application backed by AWS ElasticBeanstalk.
 
-Notably, AWS CDK has L1 constructs for AWS ElasticBeanstalk. My hope is to take what exists today in AWS CDK as far as it can go, and organically find what L2/L3 constructs for AWS ElasticBeanstalk that could benefit the community.
+Notably, AWS CDK has L1 [`constructs`](https://docs.aws.amazon.com/cdk/latest/guide/constructs.html) for [`AWS ElasticBeanstalk`](https://docs.aws.amazon.com/cdk/api/latest/typescript/api/aws-elasticbeanstalk.html). My hope is to take what exists today in AWS CDK as far as it can go, and organically find what L2/L3 constructs for AWS ElasticBeanstalk that could benefit the community.
 
 ## [`01-creating-an-application`](./01-creating-an-application/lib/01-creating-an-application-stack.ts)
 
