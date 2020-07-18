@@ -377,3 +377,52 @@ TODO
 
 </p>
 </details>
+
+## [`06-cdk-pipeline-deploy-to-environment`](./06-cdk-pipeline-deploy-to-environment/)
+
+Up to here, we have an Application with multiple Environments, but we want to be able to ship new changes to these environments. So, let's take a step back to a single Environment, add in AWS CodeBuild and AWS CodePipeline, and deploy a built application to the Environment!
+
+- [`AWS CDK App`](./06-cdk-pipeline-deploy-to-environment/bin/06-cdk-pipeline-deploy-to-environment.ts)
+- [`Underlying stacks`](./06-cdk-pipeline-deploy-to-environment/lib/06-cdk-pipeline-deploy-to-environment-stack.ts)
+
+<details><summary>Steps + Shell Output</summary>
+<p>
+
+```bash
+▶ cd 06-cdk-pipeline-deploy-to-environment
+▶ npm i
+
+# Let's validate our synthesized CloudFormation
+▶ npm run test
+
+# Bootstrap the account for CDK with the extra feature enabled
+▶ AWS_PROFILE=$AWS_PROFILE AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID AWS_REGION=$AWS_REGION ./scripts/bootstrap-account.sh
+'@aws-cdk/core:newStyleStackSynthesis' context set, using new-style bootstrapping
+ ⏳  Bootstrapping environment aws://639625606919/us-east-1...
+CDKToolkit: creating CloudFormation changeset...
+
+ ✅  Environment aws://639625606919/us-east-1 bootstrapped.
+
+# Set our AWS Secrets Manager value for AWS CodePipeline to use for access to the GitHub Repository
+▶ GITHUB_TOKEN=$GITHUB_TOKEN ./scripts/set-secrets.sh
+
+# 🚢 it!
+▶ npm run cdk deploy '*'
+
+# throw it in the 🗑️ when you're done!
+▶ npm run cdk destroy
+
+```
+
+</p>
+</details>
+
+<details><summary>AWS Console Images</summary>
+<p>
+
+### AWS CodePipeline
+
+TODO
+
+</p>
+</details>
