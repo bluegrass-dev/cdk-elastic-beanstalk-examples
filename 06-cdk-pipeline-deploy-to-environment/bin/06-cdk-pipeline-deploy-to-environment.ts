@@ -8,6 +8,6 @@ new CdkPipelineStack(app, "CdkPipelineDeployToEnvironmentStack", {
   GitHubOrganization: "bluegrass-dev",
   GitHubRepo: "cdk-elastic-beanstalk-examples",
   GitHubPathToProject: "06-cdk-pipeline-deploy-to-environment",
-  GitHubPathArtifactName: "06-cdk-pipeline-deploy-to-environment",
+  GitHubPathArtifactName: "06-cdk-pipeline-deploy-to-environment.zip",
   GitHubBranch: "master",
 });
