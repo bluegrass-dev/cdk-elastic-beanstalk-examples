@@ -20,7 +20,9 @@ export class CdkPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props: CdkPipelineStackProps) {
     super(scope, id, props);
 
-    const artifactsBucket = new s3.Bucket(this, "ArtifactsBucket");
+    const artifactsBucket = new s3.Bucket(this, "ArtifactsBucket", {
+      versioned: true, // required for CodePipeline source
+    });
 
     const build = new codebuild.Project(this, "Build", {
       source: codebuild.Source.gitHub({
@@ -60,8 +62,6 @@ export class CdkPipelineStack extends Stack {
           build: {
             commands: [
               "cd ${CODEBUILD_SRC_DIR}",
-              "ls -al",
-              "ls -al ./${GitHubPathToProject}",
               "zip -qr ${ArtifactName} ./${GitHubPathToProject}",
               "aws s3 cp ${CODEBUILD_SRC_DIR}/${ArtifactName} s3://${ArtifactsBucket}/code/${ArtifactName}",
             ],
@@ -81,7 +81,7 @@ export class CdkPipelineStack extends Stack {
       sourceAction: new codepipeline_actions.S3SourceAction({
         actionName: "S3Source",
         bucket: artifactsBucket,
-        bucketKey: `code/${props.GitHubPathArtifactName}.zip"`,
+        bucketKey: `code/${props.GitHubPathArtifactName}`,
         output: sourceArtifact,
       }),
 
@@ -91,7 +91,7 @@ export class CdkPipelineStack extends Stack {
         cloudAssemblyArtifact,
 
         // We need a build step to compile the TypeScript Lambda
-        buildCommand: "npm run build",
+        buildCommand: "ls -al && npm run build",
       }),
     });
 
